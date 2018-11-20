@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/drakon_kartochka_polny_razmer_prozrachny_fon">
+
+    <ViewFlipper
+        android:id="@+id/fragmentViewFlipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:inAnimation="@anim/flipin"
+        android:outAnimation="@anim/flipout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/imLuckyButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_weight="11"
+                android:background="@drawable/buton922"
+                android:fontFamily="@font/_dalton_maag_effra_bold"
+                android:text="мне повезёт"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <SeekBar
+                android:id="@+id/mainSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_weight="11" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/mainPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
+                <android.support.v4.view.PagerTabStrip
+                    android:id="@+id/mainPagerTabStrip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top" />
+
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:paddingTop="25dp">
+
+                    <TextView
+                        android:id="@+id/backText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/dalton_maag_effra_regular"
+                        android:textColor="@color/myBlack"
+                        android:textSize="16.7sp" />
+                </LinearLayout>
+
+
+            </ScrollView>
+        </LinearLayout>
+
+    </ViewFlipper>
+
+    <FrameLayout
+        android:id="@+id/loaderContainer"
+        android:visibility="invisible"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center">
+        <!--<ImageView
+            android:id="@+id/loaderBackShadow"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:background="@drawable/rounded"/>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/loader_black"/>
+        <ImageView
+            android:id="@+id/loaderRotator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/loader_red" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnFlipFragment"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:alpha="0.35"
+        android:background="@drawable/rotate" />
+
+</FrameLayout>

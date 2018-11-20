@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="25dp">
+
+        <TextView
+            android:id="@+id/cardHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/_caslon_italic"
+            android:text="Стратагема "
+            android:textColor="@color/myRed"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/cardHeaderContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/_caslon_italic"
+            android:textColor="@color/myBlack"
+            android:textSize="23sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="64px" />
+
+        <TextView
+            android:id="@+id/functionHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/_dalton_maag_effra_bold"
+            android:text="Функция"
+            android:textColor="@color/myRed"
+            android:textSize="12.5sp" />
+
+        <TextView
+            android:id="@+id/functionContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dalton_maag_effra_regular"
+            android:textColor="@color/myBlack"
+            android:textSize="16.7sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50px" />
+
+        <TextView
+            android:id="@+id/effectHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/_dalton_maag_effra_bold"
+            android:text="Эффект"
+            android:textColor="@color/myRed"
+            android:textSize="12.5sp" />
+
+        <TextView
+            android:id="@+id/effectContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dalton_maag_effra_regular"
+            android:textColor="@color/myBlack"
+            android:textSize="16.7sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="55px" />
+
+        <TextView
+            android:id="@+id/dialogHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/_dalton_maag_effra_bold"
+            android:text="Диалог"
+            android:textColor="@color/myRed"
+            android:textSize="12.5sp" />
+
+        <TextView
+            android:id="@+id/dialogContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dalton_maag_effra_regular"
+            android:textColor="@color/myBlack"
+            android:textSize="16.7sp" />
+    </LinearLayout>
+
+
+</ScrollView>
+
+
+    <!--
+        THIS IS DEBUG VERSION
+    <ImageView
+        android:id="@+id/imageHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:contentDescription="@string/imagePlaceHolder"
+        android:padding="10dp"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/rounded"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000000" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded">
+
+            <TextView
+                android:id="@+id/textHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp" />
+
+        </ScrollView>
+
+    </LinearLayout>-->
