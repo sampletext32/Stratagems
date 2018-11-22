@@ -30,9 +30,13 @@ public class MainActivity extends AppCompatActivity {
 
     FrameLayout loaderContainer;
 
+    FrameLayout buttonsContainer;
+
+    FrameLayout infoContainer;
+
     ImageView loaderRotator, loaderBackShadow;
 
-    TextView _backText;
+    TextView _backText, infoText;
 
     ViewFlipper _flipper;
 
@@ -77,19 +81,36 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (_btnFlipFragment.getAnimation() != null && _btnFlipFragment.getAnimation().hasEnded()) {
-                Animation animIn = new RotateAnimation(startDegree, endDegree, pivotX, pivotY);
-                animIn.setFillAfter(true); //оставить результат, не сбрасывать на начало
-                animIn.setDuration(duration);
 
-                _btnFlipFragment.setAnimation(animIn);
+                //region This is actual size
+                pivotX = _btnFlipFragment.getWidth() / 2f;
+                pivotY = _btnFlipFragment.getHeight() / 2f;
+
+                Animation animOut = new RotateAnimation(startDegree, startDegree, pivotX, pivotY);
+                animOut.setFillAfter(true); //оставить результат, не сбрасывать на начало
+                animOut.setDuration(duration);
+                //endregion
+
+                _btnFlipFragment.setAnimation(animOut);
             }
+            else if (_btnFlipFragment == null) {
+                //region This is actual size
+                pivotX = _btnFlipFragment.getWidth() / 2f;
+                pivotY = _btnFlipFragment.getHeight() / 2f;
 
+                Animation animOut = new RotateAnimation(startDegree, startDegree, pivotX, pivotY);
+                animOut.setFillAfter(true); //оставить результат, не сбрасывать на начало
+                animOut.setDuration(duration);
+                //endregion
+
+                _btnFlipFragment.setAnimation(animOut);
+            }
             return false;
         }
     };
 
     //region Views
-    private Button imLuckyButton, _btnFlipFragment;
+    private Button imLuckyButton, infoButton, _btnFlipFragment, closeInfoButton;
 
     private SeekBar seekBar;
 
@@ -147,15 +168,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            //ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-            //progressDialog.setCanceledOnTouchOutside(false);
-            //progressDialog.setMessage("Подождите");
-            //progressDialog.setIndeterminate(true);
-            //progressDialog.setIndeterminateDrawable(getResources().getDrawable(R.drawable.loader_rotate));
-            //progressDialog.setOnDismissListener(imluckyOnDismissListener);
-            //progressDialog.setOnShowListener(imluckyDialogOnShowListener);
-            //progressDialog.show();
-
             ShowCustomLoader();
             new Thread(new Runnable() {
 
@@ -195,6 +207,28 @@ public class MainActivity extends AppCompatActivity {
                 case MotionEvent.ACTION_HOVER_EXIT:
                 case MotionEvent.ACTION_UP:
                     imLuckyButton.setAlpha(1.0f);
+                    break;
+
+                default:
+            }
+            return false;
+        }
+    };
+    //endregion
+
+    //region imluckyOnTouchListener
+    private OnTouchListener infoOnTouchListener = new OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_HOVER_ENTER:
+                case MotionEvent.ACTION_DOWN:
+                    infoButton.setAlpha(0.8f);
+                    break;
+                case MotionEvent.ACTION_HOVER_EXIT:
+                case MotionEvent.ACTION_UP:
+                    infoButton.setAlpha(1.0f);
                     break;
 
                 default:
@@ -302,11 +336,56 @@ public class MainActivity extends AppCompatActivity {
     };
     //endregion
 
+    private int infoAppearDuration = 200;
+    //endregion
+
+    //region imluckyOnClickListener
+    private View.OnClickListener infoOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+            if (infoContainer.getVisibility() == View.INVISIBLE) {
+                showInfoContainer();
+            }
+            else {
+                hideInfoContainer();
+            }
+        }
+    };
+
+    private View.OnClickListener closeInfoOnClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View view) {
+            if (infoContainer.getVisibility() == View.VISIBLE) {
+                hideInfoContainer();
+            }
+        }
+    };
+
+    private OnTouchListener closeInfoOnTouchListener = new OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_HOVER_ENTER:
+                case MotionEvent.ACTION_DOWN:
+                    closeInfoButton.setAlpha(0.5f);
+                    break;
+                case MotionEvent.ACTION_HOVER_EXIT:
+                case MotionEvent.ACTION_UP:
+                    closeInfoButton.setAlpha(0.35f);
+                    break;
+
+                default:
+            }
+            return false;
+        }
+    };
     private void SetLocalPageIndex(int index) {
         seekBar.setProgress(index);
         pager.setCurrentItem(index, true);
     }
-
     private void ShowLoadingDialog() {
         //ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
         //progressDialog.setCanceledOnTouchOutside(false);
@@ -326,7 +405,6 @@ public class MainActivity extends AppCompatActivity {
 
         _backText.setText(DataUnitsHolder.get(pager.getCurrentItem()).get_backText());
     }
-
     public void ShowCustomLoader() {
         Animation rotationAnimation = new RotateAnimation(0, 360, loaderRotator.getWidth() / 2f, loaderRotator.getHeight() / 2f);
         rotationAnimation.setFillAfter(false);
@@ -335,11 +413,35 @@ public class MainActivity extends AppCompatActivity {
         loaderRotator.setAnimation(rotationAnimation);
         loaderContainer.setVisibility(View.VISIBLE);
     }
-
     public void HideCustomLoader() {
         loaderContainer.setVisibility(View.INVISIBLE);
     }
 
+    private void showInfoContainer() {
+        infoContainer.setVisibility(View.VISIBLE);
+        infoContainer.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(infoAppearDuration).start();
+    }
+
+    private void hideInfoContainer() {
+        infoContainer.animate().alpha(0f).scaleX(0f).scaleY(0f).setDuration(infoAppearDuration).withEndAction(new Runnable() {
+
+            @Override
+            public void run() {
+                infoContainer.setVisibility(View.INVISIBLE);
+            }
+        }).start();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (infoContainer.getVisibility() == View.INVISIBLE) {
+            super.onBackPressed();
+        }
+        else {
+            hideInfoContainer();
+        }
+    }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -349,10 +451,18 @@ public class MainActivity extends AppCompatActivity {
 
         pager = findViewById(R.id.mainPager);
         imLuckyButton = findViewById(R.id.imLuckyButton);
+        buttonsContainer = findViewById(R.id.buttonsContainer);
+        infoButton = findViewById(R.id.infoButton);
         seekBar = findViewById(R.id.mainSeekBar);
+        infoContainer = findViewById(R.id.infoContainer);
+        closeInfoButton = findViewById(R.id.closeInfoButton);
+        infoText = findViewById(R.id.infoText);
 
         imLuckyButton.setOnClickListener(imluckyOnClickListener);
         imLuckyButton.setOnTouchListener(imluckyOnTouchListener);
+
+        infoButton.setOnClickListener(infoOnClickListener);
+        infoButton.setOnTouchListener(infoOnTouchListener);
 
         seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
         seekBar.getThumb().setColorFilter(
@@ -373,7 +483,25 @@ public class MainActivity extends AppCompatActivity {
         _btnFlipFragment.setOnClickListener(btnFlipFragmentOnClickListener);
         _btnFlipFragment.setOnTouchListener(btnFlipFragmentOnTouchListener);
 
-        ViewGroup viewGroup = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+        closeInfoButton.getBackground().setColorFilter(getResources().getColor(R.color.myRed), PorterDuff.Mode.SRC_ATOP);
+        closeInfoButton.setOnClickListener(closeInfoOnClickListener);
+        closeInfoButton.setOnTouchListener(closeInfoOnTouchListener);
+
+        resizeInfoButton();
+
+        loaderContainer = findViewById(R.id.loaderContainer);
+        loaderRotator = findViewById(R.id.loaderRotator);
+        //loaderBackShadow = findViewById(R.id.loaderBackShadow);
+        //loaderBackShadow.setBackgroundColor(Color.parseColor("#AAAAAA"));
+        //loaderBackShadow.setAlpha(0.2f);
+
+        resizeTexts();
+
+        ShowLoadingDialog();
+
+    }
+    private void resizeInfoButton() {
+        ViewGroup viewGroup = (ViewGroup) this.findViewById(android.R.id.content).getParent();
 
         //region This Weird thing is needed to wait for app to calculate sizes
         viewGroup.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
@@ -385,17 +513,16 @@ public class MainActivity extends AppCompatActivity {
                 if (view.getViewTreeObserver().isAlive())
                     view.getViewTreeObserver().removeOnPreDrawListener(this);
 
-                //region This is actual size
-                pivotX = _btnFlipFragment.getWidth() / 2f;
-                pivotY = _btnFlipFragment.getHeight() / 2f;
+                int height = buttonsContainer.getHeight();
+                int width  = buttonsContainer.getWidth();
 
-                Animation animOut = new RotateAnimation(startDegree, startDegree, pivotX, pivotY);
-                animOut.setFillAfter(true); //оставить результат, не сбрасывать на начало
-                animOut.setDuration(duration);
-                //endregion
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                layoutParams.setMargins(0, 0, height + 10, 0);
+                imLuckyButton.setLayoutParams(layoutParams);
 
-                _btnFlipFragment.setAnimation(animOut);
-
+                layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                layoutParams.setMargins(width - height, 0, 0, 0);
+                infoButton.setLayoutParams(layoutParams);
                 return false;
             }
 
@@ -405,13 +532,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }.setView(viewGroup));
         //endregion
-
-        loaderContainer = findViewById(R.id.loaderContainer);
-        loaderRotator = findViewById(R.id.loaderRotator);
-        //loaderBackShadow = findViewById(R.id.loaderBackShadow);
-        //loaderBackShadow.setBackgroundColor(Color.parseColor("#AAAAAA"));
-        //loaderBackShadow.setAlpha(0.2f);
-
+    }
+    private void resizeTexts() {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -421,12 +543,12 @@ public class MainActivity extends AppCompatActivity {
         if (Static.DiagonalInches >= 6.5) {
             imLuckyButton.setTextSize(24);
             _backText.setTextSize(20);
+            infoText.setTextSize(20);
         }
         else {
             imLuckyButton.setTextSize(16);
-            _backText.setTextSize(14);
+            _backText.setTextSize(16);
+            infoText.setTextSize(16);
         }
-
-        ShowLoadingDialog();
     }
 }

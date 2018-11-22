@@ -17,25 +17,40 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/imLuckyButton"
+            <FrameLayout
+                android:id="@+id/buttonsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="11"
-                android:background="@drawable/buton922"
-                android:fontFamily="@font/_dalton_maag_effra_bold"
-                android:text="мне повезёт"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+                android:padding="0dp">
+
+                <Button
+                    android:id="@+id/imLuckyButton"
+                    android:layout_width="309dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/buton922"
+                    android:fontFamily="@font/_dalton_maag_effra_bold"
+                    android:text="@string/ImLucky"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/infoButton"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:background="@drawable/buton190"
+                    android:foreground="@drawable/info_icon" />
+            </FrameLayout>
 
             <SeekBar
                 android:id="@+id/mainSeekBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_weight="11" />
 
             <android.support.v4.view.ViewPager
@@ -67,10 +82,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="20dp"
                     android:paddingLeft="30dp"
+                    android:paddingTop="25dp"
                     android:paddingRight="30dp"
-                    android:paddingTop="25dp">
+                    android:paddingBottom="20dp">
 
                     <TextView
                         android:id="@+id/backText"
@@ -89,10 +104,10 @@
 
     <FrameLayout
         android:id="@+id/loaderContainer"
-        android:visibility="invisible"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:visibility="invisible">
         <!--<ImageView
             android:id="@+id/loaderBackShadow"
             android:layout_width="128dp"
@@ -101,7 +116,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/loader_black"/>
+            android:background="@drawable/loader_black" />
+
         <ImageView
             android:id="@+id/loaderRotator"
             android:layout_width="match_parent"
@@ -109,15 +125,70 @@
             android:background="@drawable/loader_red" />
     </FrameLayout>
 
-    <Button
-        android:id="@+id/btnFlipFragment"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:alpha="0.35"
-        android:background="@drawable/rotate" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btnFlipFragment"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="25dp"
+            android:alpha="0.35"
+            android:background="@drawable/rotate" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/infoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#FFFF"
+        android:alpha="0"
+        android:scaleX="0"
+        android:scaleY="0"
+        android:visibility="invisible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="30dp"
+                android:paddingTop="25dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/infoText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/dalton_maag_effra_regular"
+                    android:textColor="@color/myBlack"
+                    android:textSize="16.7sp"
+                    android:autoLink="web"
+                    android:text="@string/about"/>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/closeInfoButton"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_gravity="top|end"
+            android:alpha="0.35"
+            android:background="@drawable/close" />
+    </FrameLayout>
 
 </FrameLayout>
